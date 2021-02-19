@@ -41,9 +41,10 @@ router.post('/', (req,res) => {
     })
 })
 
+// login
 router.post('/login', (req,res) => {
     
-    const { account, password, token } = req.body
+    const { account, password } = req.body
     const sql = `select * from account${account}`
     mysql.query(sql, (err,result) => {
         if (!result) {
@@ -51,6 +52,32 @@ router.post('/login', (req,res) => {
             res.send({ success: false, message: 'before search a not account' })
             return
         }
+        if (password !== result[0].password) {
+            res.send({ success: false, message: 'wrong password' })
+            return
+        } 
+        res.send({...result[0], success: true})
+        
+    })
+})
+
+// fetch user
+router.post('/user', (req,res) => {
+
+    const { account, token } = req.body
+    const sql = `select * from account${account}`
+    mysql.query(sql, (err,result) => {
+        if (!result) {
+            res.statusCode = 400
+            res.send({ success: false, message: 'before search a not account' })
+            return
+        }
+
+        if (token !== result.token) {
+            res.send({ success: false, message: 'wrong' })
+            return
+        } 
+
         res.send({...result[0], success: true})
         
     })
