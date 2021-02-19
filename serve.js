@@ -10,7 +10,11 @@ App.listen(4000,() => {
 App.use(bodParser.urlencoded({ extended: false }))
 App.use(bodParser.json())
 
-// register
+// import
 const register = require('./routers/register')
 
+// public
+App.use('/static', express.static('public'))
+
+// use router
 App.use('/register',register)
