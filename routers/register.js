@@ -73,8 +73,8 @@ router.post('/user', (req,res) => {
             return
         }
 
-        if (token !== result.token) {
-            res.send({ success: false, message: 'wrong' })
+        if (token !== result[0].token) {
+            res.send({ success: false, message: 'wrong password' })
             return
         } 
 
