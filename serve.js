@@ -12,9 +12,11 @@ App.use(bodParser.json())
 
 // import
 const register = require('./routers/register')
+const customer = require('./routers/customer')
 
 // public
 App.use('/static', express.static('public'))
 
 // use router
 App.use('/register',register)
+App.use('/customer', customer)
