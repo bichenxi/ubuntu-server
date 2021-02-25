@@ -20,12 +20,11 @@ router.post('/', (req,res) => {
                     user: account
                 },"secretkey",{ expiresIn: '1day' },(err, token) => {
                     value.unshift(token)
-                    console.log(value)
                     const add = `INSERT INTO account${account}(token,name,account,password,created_date) VALUES(?,?,?,?,?)`
                     mysql.query(add,value,(err) => {
                         if (err) {
                             res.statusCode = 400
-                            res.send({success: false, message: '注册失败'})
+                            res.send({success: false, message: '注册失败', err})
                             return
                         }
                         res.send({
@@ -68,8 +67,8 @@ router.post('/user', (req,res) => {
     const sql = `select * from account${account}`
     mysql.query(sql, (err,result) => {
         if (!result) {
-            res.statusCode = 400
-            res.send({ success: false, message: 'before search a not account' })
+            res.statusCode = 431
+            res.send({ success: false, message: 'auth fail search not account' })
             return
         }
 
