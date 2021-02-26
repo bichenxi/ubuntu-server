@@ -7,9 +7,18 @@ const router = express.Router()
 router.post('/', (req,res) => {
     const { account, name } = req.body
     const value = Object.values(req.body)
-    mysql.query(`select * from ${account}`, (err, result) => {
+    mysql.query(`select * from account${account}`, (err, result) => {
+        if (result) {
+            res.statusCode = 401
+            res.send({
+                success: false,
+                message: '此账号当前已经被注册!'
+            })
+            return
+        }
+
         // if not this account && value.length > 0
-        if (!result && value.length) {
+        if (value.length) {
            const sql = `CREATE TABLE account${account} (token VARCHAR(255), account VARCHAR(255), name VARCHAR(255), password VARCHAR(255), created_date DATETIME)`
 
             mysql.query(sql, (err, just) => {
@@ -71,7 +80,8 @@ router.post('/user', (req,res) => {
             res.send({ success: false, message: 'auth fail search not account' })
             return
         }
-
+        console.log(token)
+        console.log(result[0])
         if (token !== result[0].token) {
             res.send({ success: false, message: 'wrong password' })
             return
