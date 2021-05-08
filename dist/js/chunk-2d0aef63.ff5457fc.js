@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0aef63"],{"0bfa":function(n,e,a){"use strict";a.r(e);var t=function(){var n=this,e=n.$createElement,a=n._self._c||e;return a("div",[n._v("粉丝详情")])},u=[],l={name:"FansDetauls"},s=l,c=a("2877"),r=Object(c["a"])(s,t,u,!1,null,null,null);e["default"]=r.exports}}]);
+//# sourceMappingURL=chunk-2d0aef63.ff5457fc.js.map
