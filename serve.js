@@ -1,9 +1,10 @@
 const express = require('express')
 const bodParser = require('body-parser')
+const path = require('path')
 
 const App = express()
 
-App.listen(4000,() => {
+App.listen(80,() => {
     console.log('start-up 4000')
 })
 
@@ -16,7 +17,8 @@ const customer = require('./routers/customer')
 
 // public
 App.use('/static', express.static('public'))
+App.use(express.static(path.join(__dirname, 'dist')))
 
 // use router
-App.use('/register',register)
-App.use('/customer', customer)
+App.use('/api/register',register)
+App.use('/api/customer', customer)
